@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mindscape.dao.BookRepository;
@@ -22,6 +24,10 @@ public class BookService implements IBook{
 	public List<Book> allBooks() {
 		return bookRepository.findAll();
 	}
+	
+	public long getNumberOfBooks() {
+        return bookRepository.count();
+    }
 
 	@Override
 	public List<Book> listBooksByGenre(String genre) {
@@ -32,6 +38,11 @@ public class BookService implements IBook{
 		});
 		return books;
 
+	}
+	
+	@Override
+	public Book getBookById(Long id) {
+		return bookRepository.findById(id).get();
 	}
 	
 	
@@ -101,6 +112,32 @@ public class BookService implements IBook{
     public List<Book> getBooksByMultipleFilters(List<String> genres, String author, String publisher) {
         return bookRepository.findByMultipleFilters(genres, author, publisher);
     }
+
+	@Override
+	public void addNewBook(Book b) {
+		bookRepository.save(b);
+		
+	}
+
+	@Override
+	public Book updateBook(Long id, Book b) {
+		return bookRepository.save(b);
+	}
+
+	@Override
+	public void deleteBook(Long id) {
+		bookRepository.deleteById(id);
+	}
+	
+	
+	@DeleteMapping(path = "/product/{id}")
+	public boolean deleteProduct(@PathVariable("id") Long id) {
+		if(getBookById(id)!=null) {
+			bookRepository.deleteById(id);
+			return true;
+		}else return false;
+	}
+
 	
 	
 

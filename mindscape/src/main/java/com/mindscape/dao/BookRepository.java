@@ -17,6 +17,9 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 	    List<Book> findByMultipleFilters(@Param("genres") List<String> genres,
 	                                    @Param("author") String author,
 	                                    @Param("publisher") String publisher);
+	
+	@Query("SELECT count(*) FROM Book ")
+	 long count();
 
 	
 }

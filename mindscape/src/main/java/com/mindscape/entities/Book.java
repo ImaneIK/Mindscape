@@ -28,9 +28,11 @@ public class Book {
 	private String langage;
 	private double rating;
 	private String url;
+	@Column(length = 3000)
+	private String description;
 	
 	public Book(Long id, String title, String author, String publisher, String cover, String genre, String pub_date,
-			int nbr_pages, String langage, double rating, String url) {
+			int nbr_pages, String langage, double rating, String url,String description) {
 		super();
 		this.title = title;
 		this.author = author;
@@ -42,6 +44,7 @@ public class Book {
 		this.langage = langage;
 		this.rating = rating;
 		this.url = url;
+		this.description = description;
 	}
 
 	public Book() {
@@ -131,6 +134,14 @@ public class Book {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 	

@@ -1,0 +1,72 @@
+<div class="w-full flex justify-between my-4 pt-16">
+    <div class="px-3">{{numberOfBooks}} Books</div>
+    <div><button class="bg-red-800 text-white rounded-md p-2 mx-2" (click)="openCreationForm()" >+ Add new book</button></div>
+</div>
+
+<div class="max-w-full mx-auto">
+
+	<div class="flex flex-col">
+    <div class="overflow-x-auto shadow-md sm:rounded-lg">
+        <div class="inline-block min-w-full align-middle">
+            <div class="overflow-hidden ">
+                <table class="min-w-full divide-y divide-gray-200 table-fixed">
+                    <thead class="bg-gray-100 ">
+                        <tr>
+                            <th scope="col" class="p-4">
+                                ID
+                            </th>
+                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                title
+                            </th>
+                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                genre
+                            </th>
+                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                author
+                            </th>
+                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                publisher
+                            </th>
+                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                publication date
+                            </th>
+                            
+                            <th scope="col" class="p-4">
+                                <span class="">Action</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200 ">
+                        
+                        <tr *ngFor="let book of books" class="hover:bg-gray-100 ">
+                            <td class="p-4 w-4">
+                                {{book.id}}
+                            </td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">{{ book.title }}</td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">{{ book.author }}</td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">{{ book.genre }}</td>
+                            <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">{{ book.publisher }}</td>
+                            <td class="py-4 px-6 text-sm font-medium text-left whitespace-nowrap"> {{book.pub_date}}  </td>
+                            <td  class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap"> 
+                                 <button (click)="openEditForm(book.id)"  class="text-red-600  hover:underline">  <svg xmlns="http://www.w3.org/2000/svg" class="fill-red-800 h-3 w-3  mx-2" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"/></svg>                                </button>
+                                <button (click)="deleteBook(book.id)"  class="text-red-600  hover:underline"><svg xmlns="http://www.w3.org/2000/svg" class="fill-red-800 h-3 w-3  mx-2" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg></button>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+
+<app-book-edit *ngIf="showModal" [book]="selectedBook" (closeModal)="toggleModal()"></app-book-edit>
+<app-book-new *ngIf="showCreationModal" (closeModal)="creationModal()"></app-book-new>
+
+
+
+ 

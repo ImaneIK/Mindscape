@@ -9,6 +9,7 @@ public interface IBook {
 	
 	// book listing and filters
 	public List<Book> allBooks();
+	public Book getBookById(Long id);
 	public List<Book> listBooksByGenre(String genre);
 	public List<Book> listBooksBytitle(String title);
 	public List<Book> listBooksByAuthor(String author);
@@ -18,6 +19,12 @@ public interface IBook {
 	public List<Book> listBooksByRating(double rating);
     
     public List<Book> getBooksByFilters(Map<String, String> filters);
+    
+    public void addNewBook(Book b);
+    
+    public Book updateBook(Long id, Book b);
+    
+    public void deleteBook(Long id);
 
 
   

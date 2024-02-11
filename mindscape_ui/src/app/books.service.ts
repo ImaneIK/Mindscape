@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, switchMap } from 'rxjs';
 import { Book } from './book.model';
 
 
@@ -18,6 +18,11 @@ export class BooksService{
 
   getAllBooks(): Observable<Book[]> {
     return this.http.get<Book[]>(`${this.apiUrl}/all`);
+  }
+
+  getBookById(id: number): Observable<Book> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.get<Book>(url);
   }
 
   getBooksByGenre(genre: string): Observable<Book[]> {
@@ -38,6 +43,28 @@ export class BooksService{
     return this.http.get<Book[]>(`${this.apiUrl}/byFilters`, { params });
   }
 
+  deleteBook(id: number): Observable<void> {
+    const url = `${this.apiUrl}/book/${id}`;
+    return this.http.delete<void>(url);
+  }
+
+  updateBook(id: number, updatedBook: Book): Observable<Book> {
+    const url = `${this.apiUrl}/book/${id}`;
+    return this.http.put<Book>(url, updatedBook);
+  }
+
+  addNewBook(addNewBook: any): Observable<Book[]> {
+    const url = `${this.apiUrl}/newBook`;
+  
+    return this.http.post<Book>(url, addNewBook).pipe(
+      switchMap(() => this.getAllBooks())
+    );
+  }
+
+  getNumberOfBooks(): Observable<number> {
+    const url = `${this.apiUrl}/count`;
+    return this.http.get<number>(url);
+  }
   
 
   

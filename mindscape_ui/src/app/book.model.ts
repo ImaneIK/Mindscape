@@ -12,5 +12,6 @@ export interface Book {
     langage: string;
     rating: number;
     url: string;
+    description:string;
   }
   
